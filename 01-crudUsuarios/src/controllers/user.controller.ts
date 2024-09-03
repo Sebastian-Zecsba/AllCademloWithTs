@@ -1,19 +1,17 @@
-import { Request, Response} from 'express'
-import { sequelize } from '../models';
-import createUserModel from '../models/user';
+import { Request, Response } from "express";
+import User from "../models/Usert";
 
-const User = createUserModel(sequelize, require('sequelize').DataTypes);
+class UserController {
 
-export class UserController {
-
-    static getAllUsers = async(req: Request, res: Response) => {
+    static getAll = async(req: Request, res: Response) =>{
         try {
-
             const users = await User.findAll()
-
+            return res.status(200).json(users)
         } catch (error) {   
-            console.log(error)
+            return res.json({message: "Can't get users" })
         }
     }
 
 }
+
+export default UserController   
