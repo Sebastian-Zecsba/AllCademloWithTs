@@ -10,5 +10,7 @@ routerMovie.delete('/:id', MovieController.deleteById)
 routerMovie.put('/:id', MovieController.updateById)
 
 routerMovie.post('/:id/genres', MovieController.setGenres)
+routerMovie.post('/:id/actors', MovieController.setActors)
+routerMovie.post('/:id/directors', MovieController.setDirector)
 
 export default routerMovie

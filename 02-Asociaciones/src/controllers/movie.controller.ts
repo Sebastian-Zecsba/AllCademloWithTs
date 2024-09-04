@@ -64,11 +64,33 @@ export class MovieController {
 
         const { id } = req.params
         const movie = await Movie.findByPk(id)
-        if(!movie) return res.status(204).json({error: "User not found"})
+        if(!movie) return res.status(204).json({error: "Movie not found"})
 
         await movie.addGenres(req.body)
 
         const genres = await movie.getGenres()
         return res.json(genres)
+    }
+
+    static setActors = async(req: Request, res: Response) => {
+        const { id } = req.params
+        const movie = await Movie.findByPk(id)
+        if(!movie) return res.status(204).json({error: "Movie not found"})
+
+        await movie.addActors(req.body)
+
+        const actors = await movie.getActors()
+        return res.json(actors) 
+    }
+
+    static setDirector = async(req: Request, res: Response) => {
+        const { id } = req.params
+        const director = await Movie.findByPk(id)
+        if(!director) return res.status(204).json({error: "Movie not found"})
+
+        await director.addDirectors(req.body)
+
+        const actors = await director.getDirectors()
+        return res.json(actors) 
     }
 }

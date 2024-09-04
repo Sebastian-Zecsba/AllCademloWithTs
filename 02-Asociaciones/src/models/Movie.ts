@@ -1,8 +1,12 @@
 import { DataTypes, Model, } from "sequelize";
 import { sequelize } from "../config/db";
 import Genre from "./Genres";
+import Actors from "./Actors";
+import Director from "./Director";
 
 type GenreInstance = ReturnType<typeof Genre['build']>;
+type ActorsInstance = ReturnType<typeof Actors['build']>;
+type DirectorInstance = ReturnType<typeof Director['build']>;
 
 interface IMovies {
     id: number;
@@ -15,6 +19,12 @@ interface IMovies {
 const Movie = sequelize.define<Model <IMovies> & {
     addGenres: (genreIds: number[]) => Promise<void>;
     getGenres: () => Promise<GenreInstance[]>; 
+
+    addActors: (actorsIds: number[]) => Promise<void>;
+    getActors: () => Promise<ActorsInstance[]>; 
+
+    addDirectors: (actorsIds: number[]) => Promise<void>;
+    getDirectors: () => Promise<ActorsInstance[]>; 
 }>('movie', {
     id: {
         type: DataTypes.INTEGER,
