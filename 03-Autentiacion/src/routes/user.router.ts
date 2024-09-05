@@ -1,13 +1,19 @@
 import express from 'express'
 import { UserController } from '../controllers/user.controller'
+import verifyJwt from '../utils/verify'
 
 const routerUser = express.Router()
 
-routerUser.get('/', UserController.getAll)
+routerUser.get('/', verifyJwt, UserController.getAll)
 routerUser.post('/', UserController.create)
-routerUser.get('/:id', UserController.getById)
-routerUser.get('/:id', UserController.deleteById)
-routerUser.get('/:id', UserController.updatedById)
+
+routerUser.post('/login', UserController.login)
+routerUser.get('/me', verifyJwt, UserController.userLogged)
+
+routerUser.get('/:id', verifyJwt, UserController.getById)
+routerUser.delete('/:id', verifyJwt, UserController.deleteById)
+routerUser.put('/:id', verifyJwt, UserController.updatedById)
+
 
 
 export default routerUser
