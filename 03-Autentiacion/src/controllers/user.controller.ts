@@ -2,11 +2,13 @@ import { Response, Request } from "express";
 import bcrypt from 'bcrypt'
 import User from "../models/User";
 import jwt from 'jsonwebtoken';
+import Post from "../models/Post";
+import Favorites from "../models/Favorites";
 
 export class UserController { 
     static getAll = async(req: Request, res: Response) =>{
         try {
-            const users = await User.findAll()
+            const users = await User.findAll({include: [Post, Favorites]})
             return res.status(200).json(users)
         } catch (error) {   
             return res.json(error)
